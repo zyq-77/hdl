@@ -1,0 +1,83 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst system_bd.sys_id -pg 1 -lvl 3 -y 350
+preplace inst system_bd.sys_hps.scu -pg 1
+preplace inst system_bd.sys_hps.sdmmc -pg 1
+preplace inst system_bd.sys_hps.uart1 -pg 1
+preplace inst system_bd.sys_hps.clkmgr -pg 1
+preplace inst system_bd.sys_hps.hps_io.border -pg 1
+preplace inst system_bd.sys_gpio_out -pg 1 -lvl 3 -y 150
+preplace inst system_bd.sys_hps.wd_timer0 -pg 1
+preplace inst system_bd.sys_hps.arm_gic_0 -pg 1
+preplace inst system_bd.sys_hps.f2s_sdram_ref_clk -pg 1
+preplace inst system_bd -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst system_bd.sys_hps.wd_timer1 -pg 1
+preplace inst system_bd.sys_hps.fpgamgr -pg 1
+preplace inst system_bd.sys_hps.axi_sdram -pg 1
+preplace inst system_bd.sys_hps.qspi -pg 1
+preplace inst system_bd.sys_hps.dma -pg 1
+preplace inst system_bd.sys_gpio_bd -pg 1 -lvl 3 -y 430
+preplace inst system_bd.sys_spi -pg 1 -lvl 3 -y 550
+preplace inst system_bd.sys_hps.sdrctl -pg 1
+preplace inst system_bd.sys_hps.rstmgr -pg 1
+preplace inst system_bd.sys_hps.bridges -pg 1
+preplace inst system_bd.sys_hps.clk_0 -pg 1
+preplace inst system_bd.sys_hps.axi_ocram -pg 1
+preplace inst system_bd.sys_hps.spim0 -pg 1
+preplace inst system_bd.sys_hps.i2c0 -pg 1
+preplace inst system_bd.sys_hps -pg 1 -lvl 3 -y 740
+preplace inst system_bd.sys_clk -pg 1 -lvl 1 -y 800
+preplace inst system_bd.sys_hps.gmac0 -pg 1
+preplace inst system_bd.sys_hps.spim1 -pg 1
+preplace inst system_bd.sys_hps.i2c1 -pg 1
+preplace inst system_bd.sys_hps.f2s_periph_ref_clk -pg 1
+preplace inst system_bd.sys_hps.gmac1 -pg 1
+preplace inst system_bd.sys_hps.i2c2 -pg 1
+preplace inst system_bd.sys_hps.timer -pg 1
+preplace inst system_bd.sys_hps.l3regs -pg 1
+preplace inst system_bd.sys_hps.i2c3 -pg 1
+preplace inst system_bd.sys_hps.gpio0 -pg 1
+preplace inst system_bd.sys_hps.timer0 -pg 1
+preplace inst system_bd.sys_hps.arm_a9_0 -pg 1
+preplace inst system_bd.sys_hps.fpga_interfaces -pg 1
+preplace inst system_bd.sys_gpio_in -pg 1 -lvl 3 -y 30
+preplace inst system_bd.sys_int_mem -pg 1 -lvl 3 -y 250
+preplace inst system_bd.sys_hps.gpio1 -pg 1
+preplace inst system_bd.sys_hps.timer1 -pg 1
+preplace inst system_bd.sys_hps.arm_a9_1 -pg 1
+preplace inst system_bd.sys_hps.nand0 -pg 1
+preplace inst system_bd.sys_hps.gpio2 -pg 1
+preplace inst system_bd.sys_hps.timer2 -pg 1
+preplace inst system_bd.sys_hps.L2 -pg 1
+preplace inst system_bd.sys_hps.eosc1 -pg 1
+preplace inst system_bd.sys_hps.hps_io -pg 1
+preplace inst system_bd.sys_hps.dcan0 -pg 1
+preplace inst system_bd.sys_hps.usb0 -pg 1
+preplace inst system_bd.sys_hps.timer3 -pg 1
+preplace inst system_bd.sys_hps.sysmgr -pg 1
+preplace inst system_bd.sys_hps.eosc2 -pg 1
+preplace inst system_bd.sys_dma_clk -pg 1 -lvl 2 -y 840
+preplace inst system_bd.sys_hps.dcan1 -pg 1
+preplace inst system_bd.sys_hps.usb1 -pg 1
+preplace inst system_bd.sys_hps.uart0 -pg 1
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)system_bd.sys_gpio_out,(SLAVE)sys_gpio_out.external_connection) 1 0 3 NJ 180 NJ 180 NJ
+preplace netloc FAN_OUT<net_container>system_bd</net_container>(SLAVE)sys_gpio_bd.s1,(SLAVE)sys_id.control_slave,(SLAVE)sys_gpio_in.s1,(MASTER)sys_hps.h2f_lw_axi_master,(SLAVE)sys_spi.spi_control_port,(SLAVE)sys_gpio_out.s1) 1 2 2 600 680 950
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_hps.hps_io,(SLAVE)system_bd.sys_hps_hps_io) 1 0 3 NJ 910 NJ 910 NJ
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)system_bd.sys_clk,(SLAVE)sys_clk.clk_in) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>system_bd</net_container>(SLAVE)sys_hps.f2h_sdram1_clock,(SLAVE)sys_hps.f2h_sdram2_clock,(MASTER)sys_dma_clk.clk) 1 2 1 620
+preplace netloc EXPORT<net_container>system_bd</net_container>(MASTER)system_bd.sys_hps_i2c0_clk,(MASTER)sys_hps.i2c0_clk) 1 3 1 NJ
+preplace netloc FAN_OUT<net_container>system_bd</net_container>(SLAVE)sys_gpio_in.clk,(SLAVE)sys_id.clk,(SLAVE)sys_hps.f2h_sdram0_clock,(SLAVE)sys_hps.f2h_axi_clock,(SLAVE)sys_hps.h2f_lw_axi_clock,(MASTER)sys_clk.clk,(SLAVE)sys_gpio_bd.clk,(SLAVE)sys_gpio_out.clk,(SLAVE)sys_spi.clk,(SLAVE)sys_hps.h2f_axi_clock,(SLAVE)sys_int_mem.clk1) 1 1 2 NJ 810 560
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_hps.memory,(SLAVE)system_bd.sys_hps_memory) 1 0 3 NJ 1010 NJ 1010 NJ
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_gpio_in.external_connection,(SLAVE)system_bd.sys_gpio_in) 1 0 3 NJ 60 NJ 60 NJ
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_hps.i2c0_scl_in,(SLAVE)system_bd.sys_hps_i2c0_scl_in) 1 0 3 NJ 990 NJ 990 NJ
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_hps.i2c0,(SLAVE)system_bd.sys_hps_i2c0) 1 0 3 NJ 970 NJ 970 NJ
+preplace netloc POINT_TO_POINT<net_container>system_bd</net_container>(MASTER)sys_hps.h2f_user0_clock,(SLAVE)sys_dma_clk.clk_in) 1 1 3 360 1060 NJ 1060 930
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_spi.external,(SLAVE)system_bd.sys_spi) 1 0 3 NJ 580 NJ 580 NJ
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_gpio_bd.external_connection,(SLAVE)system_bd.sys_gpio_bd) 1 0 3 NJ 460 NJ 460 NJ
+preplace netloc POINT_TO_POINT<net_container>system_bd</net_container>(MASTER)sys_hps.h2f_axi_master,(SLAVE)sys_int_mem.s1) 1 2 2 620 340 970
+preplace netloc EXPORT<net_container>system_bd</net_container>(SLAVE)sys_clk.clk_in_reset,(SLAVE)system_bd.sys_rst) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>system_bd</net_container>(SLAVE)sys_dma_clk.clk_in_reset,(SLAVE)sys_gpio_out.reset,(MASTER)sys_clk.clk_reset,(SLAVE)sys_id.reset,(SLAVE)sys_gpio_in.reset,(SLAVE)sys_gpio_bd.reset,(SLAVE)sys_spi.reset,(SLAVE)sys_int_mem.reset1) 1 1 2 340 830 580
+preplace netloc EXPORT<net_container>system_bd</net_container>(MASTER)system_bd.sys_hps_h2f_reset,(MASTER)sys_hps.h2f_reset) 1 3 1 NJ
+preplace netloc FAN_OUT<net_container>system_bd</net_container>(SLAVE)sys_spi.irq,(MASTER)sys_hps.f2h_irq0,(SLAVE)sys_gpio_bd.irq) 1 2 2 620 700 930
+levelinfo -pg 1 0 130 1130
+levelinfo -hier system_bd 140 170 390 740 990
