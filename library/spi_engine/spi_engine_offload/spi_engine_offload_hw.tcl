@@ -27,15 +27,15 @@ proc p_elaboration {} {
   ad_interface clock ctrl_clk input 1
 
   add_interface ctrl_cmd_if conduit end
-  add_interface_port ctrl_cmd_if ctrl_cmd_wr_en    wre   output  1
-  add_interface_port ctrl_cmd_if ctrl_cmd_wr_data  data  output 16
+  add_interface_port ctrl_cmd_if ctrl_cmd_wr_en    wre   input  1
+  add_interface_port ctrl_cmd_if ctrl_cmd_wr_data  data  input 16
 
   set_interface_property ctrl_cmd_if associatedClock if_ctrl_clk
   set_interface_property ctrl_cmd_if associatedReset none
 
   add_interface ctrl_sdo_if conduit end
-  add_interface_port ctrl_sdo_if ctrl_sdo_wr_en    wre   output  1
-  add_interface_port ctrl_sdo_if ctrl_sdo_wr_data  data  output $data_width
+  add_interface_port ctrl_sdo_if ctrl_sdo_wr_en    wre   input  1
+  add_interface_port ctrl_sdo_if ctrl_sdo_wr_data  data  input $data_width
 
   set_interface_property ctrl_sdo_if associatedClock if_ctrl_clk
   set_interface_property ctrl_sdo_if associatedReset none
@@ -59,7 +59,7 @@ proc p_elaboration {} {
   add_interface_port cmd_if cmd       data    output   16
 
   set_interface_property cmd_if associatedClock if_spi_clk
-  set_interface_property cmd_if associatedReset if_spi_resetn
+  set_interface_property cmd_if associatedReset none
 
   ## SDO data interface
 
@@ -69,7 +69,7 @@ proc p_elaboration {} {
   add_interface_port sdo_if sdo_data        data    output $data_width
 
   set_interface_property sdo_if associatedClock if_spi_clk
-  set_interface_property sdo_if associatedReset if_spi_resetn
+  set_interface_property sdo_if associatedReset none
 
   ## SDI data interface
 
@@ -79,7 +79,7 @@ proc p_elaboration {} {
   add_interface_port sdi_if sdi_data        data  input   [expr $num_of_sdi * $data_width]
 
   set_interface_property sdi_if associatedClock if_spi_clk
-  set_interface_property sdi_if associatedReset if_spi_resetn
+  set_interface_property sdi_if associatedReset none
 
   ## SYNC data interface
 
@@ -89,7 +89,7 @@ proc p_elaboration {} {
   add_interface_port sync_if sync_data        data  input   8
 
   set_interface_property sync_if associatedClock if_spi_clk
-  set_interface_property sync_if associatedReset if_spi_resetn
+  set_interface_property sync_if associatedReset none
 
   ## Offload SDI data interface
 
@@ -99,6 +99,6 @@ proc p_elaboration {} {
   add_interface_port offload_sdi_if offload_sdi_data   data  input   [expr $num_of_sdi * $data_width]
 
   set_interface_property offload_sdi_if associatedClock if_spi_clk
-  set_interface_property offload_sdi_if associatedReset if_spi_resetn
+  set_interface_property offload_sdi_if associatedReset none
 
 }

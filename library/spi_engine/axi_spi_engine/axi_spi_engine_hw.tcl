@@ -72,28 +72,28 @@ proc p_elaboration {} {
   ad_interface reset spi_resetn  input 1 if_spi_clk
 
   add_interface cmd_if conduit end
-  add_interface_port cmd_if cmd_ready enable  input   1
+  add_interface_port cmd_if cmd_ready ready  input   1
   add_interface_port cmd_if cmd_valid valid   output  1
   add_interface_port cmd_if cmd       data    output 16
 
   set_interface_property cmd_if associatedClock if_spi_clk
-  set_interface_property cmd_if associatedReset if_spi_resetn
+  set_interface_property cmd_if associatedReset none
 
   add_interface sdo_if conduit end
-  add_interface_port sdo_if sdo_data_ready  enable  input           1
-  add_interface_port sdo_if sdo_data_valid  valid   output          1
-  add_interface_port sdo_if sdo_data        data    output $data_width
+  add_interface_port sdo_if sdo_data_ready ready input  1
+  add_interface_port sdo_if sdo_data_valid valid output 1
+  add_interface_port sdo_if sdo_data       data  output $data_width
 
   set_interface_property sdo_if associatedClock if_spi_clk
-  set_interface_property sdo_if associatedReset if_spi_resetn
+  set_interface_property sdo_if associatedReset none
 
   add_interface sdi_if conduit end
   add_interface_port sdi_if sdi_data_ready  ready output                      1
   add_interface_port sdi_if sdi_data_valid  valid input                       1
   add_interface_port sdi_if sdi_data        data  input [expr $num_of_sdi * $data_width]
 
-  set_interface_property sdo_if associatedClock if_spi_clk
-  set_interface_property sdo_if associatedReset if_spi_resetn
+  set_interface_property sdi_if associatedClock if_spi_clk
+  set_interface_property sdi_if associatedReset none
 
   add_interface sync_if conduit end
   add_interface_port sync_if sync_data_valid  valid input   1
@@ -101,7 +101,7 @@ proc p_elaboration {} {
   add_interface_port sync_if sync_data        data  input   8
 
   set_interface_property sync_if associatedClock if_spi_clk
-  set_interface_property sync_if associatedReset if_spi_resetn
+  set_interface_property sync_if associatedReset none
 
   # Offload interfaces
 
@@ -110,14 +110,14 @@ proc p_elaboration {} {
   add_interface_port offload0_cmd_if cmd_data   data  output 16
 
   set_interface_property offload0_cmd_if associatedClock if_spi_clk
-  set_interface_property offload0_cmd_if associatedReset if_spi_resetn
+  set_interface_property offload0_cmd_if associatedReset none
 
   add_interface offload0_sdo_if conduit end
-  add_interface_port offload0_sdo_if sdo_wre    wre   output  1
-  add_interface_port offload0_sdo_if sdo_data   data  output  $data_width
+  add_interface_port offload0_sdo_if offload_sdo_wre    wre   output  1
+  add_interface_port offload0_sdo_if offload_sdo_data   data  output  $data_width
 
   set_interface_property offload0_sdo_if associatedClock if_spi_clk
-  set_interface_property offload0_sdo_if associatedReset if_spi_resetn
+  set_interface_property offload0_sdo_if associatedReset none
 
   ad_interface signal  offload0_mem_reset  output  1   reset
   ad_interface signal  offload0_enable     output  1   enable

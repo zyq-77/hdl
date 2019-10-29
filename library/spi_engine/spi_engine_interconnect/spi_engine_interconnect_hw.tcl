@@ -25,7 +25,7 @@ proc p_elaboration {} {
   # command master interface
 
   add_interface m_cmd_if conduit end
-  add_interface_port m_cmd_if m_cmd_ready enable input 1
+  add_interface_port m_cmd_if m_cmd_ready ready input 1
   add_interface_port m_cmd_if m_cmd_valid valid output 1
   add_interface_port m_cmd_if m_cmd data output 16
 
@@ -35,7 +35,7 @@ proc p_elaboration {} {
   # SDO data master interface
 
   add_interface m_sdo_if conduit end
-  add_interface_port m_sdo_if m_sdo_data_ready enable input 1
+  add_interface_port m_sdo_if m_sdo_data_ready ready input 1
   add_interface_port m_sdo_if m_sdo_data_valid valid output 1
   add_interface_port m_sdo_if m_sdo_data data output $data_width
 
@@ -49,8 +49,8 @@ proc p_elaboration {} {
   add_interface_port m_sdi_if m_sdi_data_valid valid input 1
   add_interface_port m_sdi_if m_sdi_data data input [expr $num_of_sdi * $data_width]
 
-  set_interface_property m_sdo_if associatedClock if_clk
-  set_interface_property m_sdo_if associatedReset none
+  set_interface_property m_sdi_if associatedClock if_clk
+  set_interface_property m_sdi_if associatedReset none
 
   # SYNC master interface
 
@@ -65,7 +65,7 @@ proc p_elaboration {} {
   # command slave0 interface
 
   add_interface s0_cmd_if conduit end
-  add_interface_port s0_cmd_if s0_cmd_ready enable output 1
+  add_interface_port s0_cmd_if s0_cmd_ready ready output 1
   add_interface_port s0_cmd_if s0_cmd_valid valid input 1
   add_interface_port s0_cmd_if s0_cmd data input 16
 
@@ -75,7 +75,7 @@ proc p_elaboration {} {
   # SDO data slave0 interface
 
   add_interface s0_sdo_if conduit end
-  add_interface_port s0_sdo_if s0_sdo_data_ready enable output 1
+  add_interface_port s0_sdo_if s0_sdo_data_ready ready output 1
   add_interface_port s0_sdo_if s0_sdo_data_valid valid input 1
   add_interface_port s0_sdo_if s0_sdo_data data input $data_width
 
@@ -89,8 +89,8 @@ proc p_elaboration {} {
   add_interface_port s0_sdi_if s0_sdi_data_valid valid output 1
   add_interface_port s0_sdi_if s0_sdi_data data output [expr $num_of_sdi * $data_width]
 
-  set_interface_property s0_sdo_if associatedClock if_clk
-  set_interface_property s0_sdo_if associatedReset none
+  set_interface_property s0_sdi_if associatedClock if_clk
+  set_interface_property s0_sdi_if associatedReset none
 
   # SYNC slave0 interface
 
@@ -105,7 +105,7 @@ proc p_elaboration {} {
   # command slave1 interface
 
   add_interface s1_cmd_if conduit end
-  add_interface_port s1_cmd_if s1_cmd_ready enable output 1
+  add_interface_port s1_cmd_if s1_cmd_ready ready output 1
   add_interface_port s1_cmd_if s1_cmd_valid valid input 1
   add_interface_port s1_cmd_if s1_cmd data input 16
 
@@ -115,7 +115,7 @@ proc p_elaboration {} {
   # SDO data slave1 interface
 
   add_interface s1_sdo_if conduit end
-  add_interface_port s1_sdo_if s1_sdo_data_ready enable output 1
+  add_interface_port s1_sdo_if s1_sdo_data_ready ready output 1
   add_interface_port s1_sdo_if s1_sdo_data_valid valid input 1
   add_interface_port s1_sdo_if s1_sdo_data data input $data_width
 
@@ -129,8 +129,8 @@ proc p_elaboration {} {
   add_interface_port s1_sdi_if s1_sdi_data_valid valid output 1
   add_interface_port s1_sdi_if s1_sdi_data data output [expr $num_of_sdi * $data_width]
 
-  set_interface_property s1_sdo_if associatedClock if_clk
-  set_interface_property s1_sdo_if associatedReset none
+  set_interface_property s1_sdi_if associatedClock if_clk
+  set_interface_property s1_sdi_if associatedReset none
 
   # SYNC slave1 interface
 

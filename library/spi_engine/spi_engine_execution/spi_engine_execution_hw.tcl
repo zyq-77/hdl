@@ -36,7 +36,7 @@ proc p_elaboration {} {
   add_interface_port cmd_if cmd       data  input 16
 
   set_interface_property cmd_if associatedClock if_clk
-  set_interface_property cmd_if associatedReset if_resetn
+  set_interface_property cmd_if associatedReset none
 
   # SDO data interface
 
@@ -61,9 +61,9 @@ proc p_elaboration {} {
   # SYNC data interface
 
   add_interface sync_if conduit end
-  add_interface_port sync_if sync_data_valid  valid input  1
-  add_interface_port sync_if sync_data_ready  ready output 1
-  add_interface_port sync_if sync_data        data  input  8
+  add_interface_port sync_if sync_data_valid  valid output  1
+  add_interface_port sync_if sync_data_ready  ready input 1
+  add_interface_port sync_if sync_data        data  output  8
 
   set_interface_property sync_if associatedClock if_clk
   set_interface_property sync_if associatedReset if_resetn
