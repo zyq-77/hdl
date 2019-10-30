@@ -30,40 +30,40 @@ proc p_elaboration {} {
 
   # command interface
 
-  add_interface cmd_if conduit end
-  add_interface_port cmd_if cmd_ready ready output 1
-  add_interface_port cmd_if cmd_valid valid input 1
-  add_interface_port cmd_if cmd       data  input 16
+  add_interface cmd_if axi4stream end
+  add_interface_port cmd_if cmd_ready tready output 1
+  add_interface_port cmd_if cmd_valid tvalid input 1
+  add_interface_port cmd_if cmd       tdata  input 16
 
   set_interface_property cmd_if associatedClock if_clk
-  set_interface_property cmd_if associatedReset none
+  set_interface_property cmd_if associatedReset if_resetn
 
   # SDO data interface
 
-  add_interface sdo_if conduit end
-  add_interface_port sdo_if sdo_data_ready ready output 1
-  add_interface_port sdo_if sdo_data_valid valid input  1
-  add_interface_port sdo_if sdo_data        data input  $data_width
+  add_interface sdo_if axi4stream end
+  add_interface_port sdo_if sdo_data_ready tready output 1
+  add_interface_port sdo_if sdo_data_valid tvalid input  1
+  add_interface_port sdo_if sdo_data        tdata input  $data_width
 
   set_interface_property sdo_if associatedClock if_clk
   set_interface_property sdo_if associatedReset if_resetn
 
   # SDI data interface
 
-  add_interface sdi_if conduit end
-  add_interface_port sdi_if sdi_data_ready  ready input  1
-  add_interface_port sdi_if sdi_data_valid  valid output 1
-  add_interface_port sdi_if sdi_data        data  output [expr $num_of_sdi * $data_width]
+  add_interface sdi_if axi4stream start
+  add_interface_port sdi_if sdi_data_ready  tready input  1
+  add_interface_port sdi_if sdi_data_valid  tvalid output 1
+  add_interface_port sdi_if sdi_data        tdata  output [expr $num_of_sdi * $data_width]
 
   set_interface_property sdi_if associatedClock if_clk
   set_interface_property sdi_if associatedReset if_resetn
 
   # SYNC data interface
 
-  add_interface sync_if conduit end
-  add_interface_port sync_if sync_data_valid  valid output  1
-  add_interface_port sync_if sync_data_ready  ready input 1
-  add_interface_port sync_if sync_data        data  output  8
+  add_interface sync_if axi4stream start
+  add_interface_port sync_if sync_data_valid  tvalid output  1
+  add_interface_port sync_if sync_data_ready  tready input 1
+  add_interface_port sync_if sync_data        tdata  output  8
 
   set_interface_property sync_if associatedClock if_clk
   set_interface_property sync_if associatedReset if_resetn

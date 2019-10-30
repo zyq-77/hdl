@@ -25,6 +25,7 @@ proc p_elaboration {} {
   # control interface
 
   ad_interface clock ctrl_clk input 1
+  ad_interface reset spi_resetn  input 1 if_spi_clk
 
   add_interface ctrl_cmd_if conduit end
   add_interface_port ctrl_cmd_if ctrl_cmd_wr_en    wre   input  1
@@ -53,52 +54,51 @@ proc p_elaboration {} {
 
   ## command interface
 
-  add_interface cmd_if conduit end
-  add_interface_port cmd_if cmd_valid valid   output    1
-  add_interface_port cmd_if cmd_ready ready   input     1
-  add_interface_port cmd_if cmd       data    output   16
+  add_interface cmd_if axi4stream start
+  add_interface_port cmd_if cmd_valid tvalid   output    1
+  add_interface_port cmd_if cmd_ready tready   input     1
+  add_interface_port cmd_if cmd  tdata    output   16
 
   set_interface_property cmd_if associatedClock if_spi_clk
-  set_interface_property cmd_if associatedReset none
+  set_interface_property cmd_if associatedReset if_spi_resetn
 
   ## SDO data interface
 
-  add_interface sdo_if conduit end
-  add_interface_port sdo_if sdo_data_valid  valid   output 1
-  add_interface_port sdo_if sdo_data_ready  ready   input  1
-  add_interface_port sdo_if sdo_data        data    output $data_width
+  add_interface sdo_if axi4stream start
+  add_interface_port sdo_if sdo_data_valid  tvalid   output 1
+  add_interface_port sdo_if sdo_data_ready  tready   input  1
+  add_interface_port sdo_if sdo_data        tdata    output $data_width
 
   set_interface_property sdo_if associatedClock if_spi_clk
-  set_interface_property sdo_if associatedReset none
+  set_interface_property sdo_if associatedReset if_spi_resetn
 
   ## SDI data interface
 
-  add_interface sdi_if conduit end
-  add_interface_port sdi_if sdi_data_valid  valid input   1
-  add_interface_port sdi_if sdi_data_ready  ready output  1
-  add_interface_port sdi_if sdi_data        data  input   [expr $num_of_sdi * $data_width]
+  add_interface sdi_if axi4stream end
+  add_interface_port sdi_if sdi_data_valid  tvalid input   1
+  add_interface_port sdi_if sdi_data_ready  tready output  1
+  add_interface_port sdi_if sdi_data        tdata  input   [expr $num_of_sdi * $data_width]
 
   set_interface_property sdi_if associatedClock if_spi_clk
-  set_interface_property sdi_if associatedReset none
+  set_interface_property sdi_if associatedReset if_spi_resetn
 
   ## SYNC data interface
 
-  add_interface sync_if conduit end
-  add_interface_port sync_if sync_data_valid  valid input   1
-  add_interface_port sync_if sync_data_ready  ready output  1
-  add_interface_port sync_if sync_data        data  input   8
+  add_interface sync_if axi4stream end
+  add_interface_port sync_if sync_data_valid  tvalid input   1
+  add_interface_port sync_if sync_data_ready  tready output  1
+  add_interface_port sync_if sync_data        tdata  input   8
 
   set_interface_property sync_if associatedClock if_spi_clk
-  set_interface_property sync_if associatedReset none
+  set_interface_property sync_if associatedReset if_spi_resetn
 
   ## Offload SDI data interface
-
-  add_interface offload_sdi_if conduit end
-  add_interface_port offload_sdi_if offload_sdi_valid  valid input   1
-  add_interface_port offload_sdi_if offload_sdi_ready  ready output  1
-  add_interface_port offload_sdi_if offload_sdi_data   data  input   [expr $num_of_sdi * $data_width]
+  add_interface offload_sdi_if axi4stream start
+  add_interface_port offload_sdi_if offload_sdi_if_valid tvalid output 1
+  add_interface_port offload_sdi_if offload_sdi_if_ready tready input 1
+  add_interface_port offload_sdi_if offload_sdi_if_data  tdata  output   [expr $num_of_sdi * $data_width]
 
   set_interface_property offload_sdi_if associatedClock if_spi_clk
-  set_interface_property offload_sdi_if associatedReset none
+  set_interface_property offload_sdi_if associatedReset if_spi_resetn
 
 }
