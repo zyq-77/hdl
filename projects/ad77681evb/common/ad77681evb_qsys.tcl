@@ -117,5 +117,3 @@
 	
 	ad_cpu_interrupt 3 axi_dmac_0.interrupt_sender
 	ad_cpu_interrupt 4 axi_spi_engine_0.interrupt_sender
-
-		

@@ -211,6 +211,7 @@ set_interface_property sys_spi EXPORT_OF sys_spi.external
 
 ad_cpu_interrupt 0 sys_gpio_bd.irq
 ad_cpu_interrupt 1 sys_spi.irq
+ad_cpu_interrupt 2 sys_gpio_in.irq 
 
 # cpu interconnects
 
