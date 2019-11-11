@@ -88,24 +88,24 @@
     
 	# SPI Engine connections
 	
-	add_connection axi_spi_engine_0.cmd_if spi_engine_interconnect_0.s0_cmd_if 
-	add_connection axi_spi_engine_0.sdo_if spi_engine_interconnect_0.s0_sdo_if 
-	add_connection spi_engine_execution_0.sdi_if spi_engine_interconnect_0.m_sdi_if 
-    add_connection spi_engine_execution_0.sync_if spi_engine_interconnect_0.m_sync_if 
-    add_connection spi_engine_interconnect_0.m_cmd_if spi_engine_execution_0.cmd_if 
-    add_connection spi_engine_interconnect_0.m_sdo_if spi_engine_execution_0.sdo_if 
-    add_connection spi_engine_interconnect_0.s0_sdi_if axi_spi_engine_0.sdi_if 
-    add_connection spi_engine_interconnect_0.s0_sync_if axi_spi_engine_0.sync_if 
-    add_connection spi_engine_interconnect_0.s1_sdi_if spi_engine_offload_0.sdi_if 
-    add_connection spi_engine_interconnect_0.s1_sync_if spi_engine_offload_0.sync_if 
-    add_connection spi_engine_offload_0.cmd_if spi_engine_interconnect_0.s1_cmd_if 
-	add_connection spi_engine_offload_0.ctrl_cmd_if axi_spi_engine_0.offload0_cmd_if
-	add_connection spi_engine_offload_0.ctrl_sdo_if axi_spi_engine_0.offload0_sdo_if
+	add_connection axi_spi_engine_0.cmd spi_engine_interconnect_0.s0_cmd
+	add_connection axi_spi_engine_0.sdo_data spi_engine_interconnect_0.s0_sdo 
+	add_connection spi_engine_execution_0.sdi_data spi_engine_interconnect_0.m_sdi 
+    add_connection spi_engine_execution_0.sync spi_engine_interconnect_0.m_sync
+    add_connection spi_engine_interconnect_0.m_cmd spi_engine_execution_0.cmd 
+    add_connection spi_engine_interconnect_0.m_sdo spi_engine_execution_0.sdo_data 
+    add_connection spi_engine_interconnect_0.s0_sdi axi_spi_engine_0.sdi_data 
+    add_connection spi_engine_interconnect_0.s0_sync axi_spi_engine_0.sync 
+    add_connection spi_engine_interconnect_0.s1_sdi spi_engine_offload_0.sdi_data 
+    add_connection spi_engine_interconnect_0.s1_sync spi_engine_offload_0.sync
+    add_connection spi_engine_offload_0.cmd spi_engine_interconnect_0.s1_cmd 
+	add_connection spi_engine_offload_0.ctrl_cmd_wr axi_spi_engine_0.offload0_cmd
+	add_connection spi_engine_offload_0.ctrl_sdo_wr axi_spi_engine_0.offload0_sdo
 	add_connection spi_engine_offload_0.if_ctrl_enable axi_spi_engine_0.if_offload0_enable
 	add_connection spi_engine_offload_0.if_ctrl_enabled axi_spi_engine_0.if_offload0_enabled
 	add_connection spi_engine_offload_0.if_ctrl_mem_reset axi_spi_engine_0.if_offload0_mem_reset
-	add_connection spi_engine_offload_0.offload_sdi_if axi_dmac_0.s_axis
-    add_connection spi_engine_offload_0.sdo_if spi_engine_interconnect_0.s1_sdo_if
+	add_connection spi_engine_offload_0.offload_sdi axi_dmac_0.s_axis
+    add_connection spi_engine_offload_0.sdo_data spi_engine_interconnect_0.s1_sdo
 	
 	
 	# cpu interconnects
