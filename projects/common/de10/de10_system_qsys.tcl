@@ -136,7 +136,7 @@ proc ad_dma_interconnect {m_port m_id} {
 # common dma interfaces
 
 add_instance sys_dma_clk clock_source
-add_connection sys_hps.h2f_user0_clock sys_dma_clk.clk_in
+add_connection sys_clk.clk sys_dma_clk.clk_in
 add_connection sys_clk.clk_reset sys_dma_clk.clk_in_reset
 add_connection sys_dma_clk.clk sys_hps.f2h_sdram1_clock
 add_connection sys_dma_clk.clk sys_hps.f2h_sdram2_clock
