@@ -43,7 +43,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ad77681_sync_in
 
 
 #
-## set optimization to get a better timing closure
-# set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+# set optimization to get a better timing closure
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
 
 execute_flow -compile

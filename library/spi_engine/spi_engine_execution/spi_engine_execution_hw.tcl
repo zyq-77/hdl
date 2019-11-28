@@ -32,8 +32,8 @@ proc p_elaboration {} {
 
   add_interface cmd axi4stream end
   add_interface_port cmd cmd_ready tready output 1
-  add_interface_port cmd cmd_valid tvalid input 1
-  add_interface_port cmd cmd       tdata  input 16
+  add_interface_port cmd cmd_valid tvalid input  1
+  add_interface_port cmd cmd       tdata  input  16
 
   set_interface_property cmd associatedClock if_clk
   set_interface_property cmd associatedReset if_resetn
@@ -41,9 +41,9 @@ proc p_elaboration {} {
   # SDO data interface
 
   add_interface sdo_data axi4stream end
-  add_interface_port sdo_data sdo_data_ready tready output 1
-  add_interface_port sdo_data sdo_data_valid tvalid input  1
-  add_interface_port sdo_data sdo_data        tdata input  $data_width
+  add_interface_port sdo_data sdo_data_ready  tready output 1
+  add_interface_port sdo_data sdo_data_valid  tvalid input  1
+  add_interface_port sdo_data sdo_data        tdata  input  $data_width
 
   set_interface_property sdo_data associatedClock if_clk
   set_interface_property sdo_data associatedReset if_resetn

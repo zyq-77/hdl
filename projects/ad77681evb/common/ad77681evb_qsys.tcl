@@ -35,9 +35,7 @@
 	
 	add_connection sys_clk.clk axi_spi_engine_0.if_spi_clk
     add_connection sys_clk.clk axi_spi_engine_0.s_axi_clock
-	add_connection sys_clk.clk_reset axi_spi_engine_0.if_spi_resetn
-	add_connection sys_hps.h2f_reset axi_spi_engine_0.if_spi_resetn
-    add_connection sys_hps.h2f_reset axi_spi_engine_0.s_axi_reset
+	add_connection sys_clk.clk_reset axi_spi_engine_0.s_axi_reset	
 		
 	# spi_engine_execution
 	
@@ -46,8 +44,7 @@
     set_instance_parameter_value spi_engine_execution_0 {NUM_OF_SDI} {1}
 	
 	add_connection sys_clk.clk spi_engine_execution_0.if_clk
-	add_connection sys_clk.clk_reset spi_engine_execution_0.if_resetn
-	add_connection sys_hps.h2f_reset spi_engine_execution_0.if_resetn
+	add_connection axi_spi_engine_0.if_spi_resetn spi_engine_execution_0.if_resetn
 	add_interface spi_engine_execution_0_if_active conduit end
     set_interface_property spi_engine_execution_0_if_active EXPORT_OF spi_engine_execution_0.if_active
 	add_interface spi_engine_execution_0_if_cs conduit end
@@ -70,9 +67,8 @@
     set_instance_parameter_value spi_engine_interconnect_0 {NUM_OF_SDI} {1}
 	
 	add_connection sys_clk.clk spi_engine_interconnect_0.if_clk
-	add_connection sys_clk.clk_reset spi_engine_interconnect_0.if_resestn
-	add_connection sys_hps.h2f_reset spi_engine_interconnect_0.if_resestn
-		
+	add_connection axi_spi_engine_0.if_spi_resetn spi_engine_interconnect_0.if_resetn
+	
 	# spi_engine_offload
 	
 	add_instance spi_engine_offload_0 spi_engine_offload
@@ -82,7 +78,10 @@
 	
 	add_connection sys_clk.clk spi_engine_offload_0.if_ctrl_clk
     add_connection sys_clk.clk spi_engine_offload_0.if_spi_clk
-	add_connection sys_hps.h2f_reset spi_engine_offload_0.if_spi_resetn
+	
+	#add_connection sys_hps.h2f_reset spi_engine_offload_0.if_spi_resetn
+	add_connection axi_spi_engine_0.if_spi_resetn spi_engine_offload_0.if_spi_resetn
+	
 	add_interface spi_engine_offload_0_if_trigger conduit end
     set_interface_property spi_engine_offload_0_if_trigger EXPORT_OF spi_engine_offload_0.if_trigger
     
@@ -106,8 +105,7 @@
 	add_connection spi_engine_offload_0.if_ctrl_mem_reset axi_spi_engine_0.if_offload0_mem_reset
 	add_connection spi_engine_offload_0.offload_sdi axi_dmac_0.s_axis
     add_connection spi_engine_offload_0.sdo_data spi_engine_interconnect_0.s1_sdo
-	
-	
+		
 	# cpu interconnects
 
 	ad_cpu_interconnect 0x00020000 axi_dmac_0.s_axi
@@ -117,3 +115,4 @@
 	
 	ad_cpu_interrupt 3 axi_dmac_0.interrupt_sender
 	ad_cpu_interrupt 4 axi_spi_engine_0.interrupt_sender
+	

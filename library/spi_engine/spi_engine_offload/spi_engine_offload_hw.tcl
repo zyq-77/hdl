@@ -57,7 +57,7 @@ proc p_elaboration {} {
   add_interface cmd axi4stream start
   add_interface_port cmd cmd_valid tvalid   output    1
   add_interface_port cmd cmd_ready tready   input     1
-  add_interface_port cmd cmd  tdata    output   16
+  add_interface_port cmd cmd       tdata    output    16
 
   set_interface_property cmd associatedClock if_spi_clk
   set_interface_property cmd associatedReset if_spi_resetn
@@ -75,9 +75,9 @@ proc p_elaboration {} {
   ## SDI data interface
 
   add_interface sdi_data axi4stream end
-  add_interface_port sdi_data sdi_data_valid  tvalid input   1
-  add_interface_port sdi_data sdi_data_ready  tready output  1
-  add_interface_port sdi_data sdi_data        tdata  input   [expr $num_of_sdi * $data_width]
+  add_interface_port sdi_data sdi_data_valid  tvalid  input   1
+  add_interface_port sdi_data sdi_data_ready  tready  output  1
+  add_interface_port sdi_data sdi_data        tdata   input   [expr $num_of_sdi * $data_width]
 
   set_interface_property sdi_data associatedClock if_spi_clk
   set_interface_property sdi_data associatedReset if_spi_resetn
@@ -93,10 +93,11 @@ proc p_elaboration {} {
   set_interface_property sync associatedReset if_spi_resetn
 
   ## Offload SDI data interface
+  
   add_interface offload_sdi axi4stream start
-  add_interface_port offload_sdi offload_sdi_valid tvalid output 1
-  add_interface_port offload_sdi offload_sdi_ready tready input 1
-  add_interface_port offload_sdi offload_sdi_data  tdata  output   [expr $num_of_sdi * $data_width]
+  add_interface_port offload_sdi offload_sdi_valid tvalid  output 1
+  add_interface_port offload_sdi offload_sdi_ready tready  input 1
+  add_interface_port offload_sdi offload_sdi_data  tdata   output   [expr $num_of_sdi * $data_width]
 
   set_interface_property offload_sdi associatedClock if_spi_clk
   set_interface_property offload_sdi associatedReset if_spi_resetn

@@ -71,11 +71,11 @@ proc p_elaboration {} {
   # SPI Engine interfaces
 
   ad_interface clock spi_clk     input 1
-  ad_interface reset spi_resetn  input 1 if_spi_clk
+  ad_interface reset spi_resetn  output 1 if_spi_clk
 
   add_interface cmd axi4stream start
-  add_interface_port cmd cmd_ready tready  input   1
-  add_interface_port cmd cmd_valid tvalid   output  1
+  add_interface_port cmd cmd_ready tready   input  1
+  add_interface_port cmd cmd_valid tvalid   output 1
   add_interface_port cmd cmd_data  tdata    output 16
 
   set_interface_property cmd associatedClock if_spi_clk
@@ -98,9 +98,9 @@ proc p_elaboration {} {
   set_interface_property sdi_data associatedReset if_spi_resetn
 
   add_interface sync axi4stream end
-  add_interface_port sync sync_data_valid  tvalid input   1
-  add_interface_port sync sync_data_ready  tready output  1
-  add_interface_port sync sync_data        tdata  input   8
+  add_interface_port sync sync_valid  tvalid input   1
+  add_interface_port sync sync_ready  tready output  1
+  add_interface_port sync sync_data   tdata  input   8
 
   set_interface_property sync associatedClock if_spi_clk
   set_interface_property sync associatedReset if_spi_resetn
@@ -109,14 +109,14 @@ proc p_elaboration {} {
 
   add_interface offload0_cmd conduit end
   add_interface_port offload0_cmd offload0_cmd_wr_en    wre   output  1
-  add_interface_port offload0_cmd offload0_cmd_wr_data   data  output 16
+  add_interface_port offload0_cmd offload0_cmd_wr_data  data  output  16
 
   set_interface_property offload0_cmd associatedClock if_spi_clk
   set_interface_property offload0_cmd associatedReset none
 
   add_interface offload0_sdo conduit end
   add_interface_port offload0_sdo offload0_sdo_wr_en    wre   output  1
-  add_interface_port offload0_sdo offload0_sdo_wr_data   data  output  $data_width
+  add_interface_port offload0_sdo offload0_sdo_wr_data  data  output  $data_width
 
   set_interface_property offload0_sdo associatedClock if_spi_clk
   set_interface_property offload0_sdo associatedReset none
