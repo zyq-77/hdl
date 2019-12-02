@@ -78,10 +78,7 @@
 	
 	add_connection sys_clk.clk spi_engine_offload_0.if_ctrl_clk
     add_connection sys_clk.clk spi_engine_offload_0.if_spi_clk
-	
-	#add_connection sys_hps.h2f_reset spi_engine_offload_0.if_spi_resetn
 	add_connection axi_spi_engine_0.if_spi_resetn spi_engine_offload_0.if_spi_resetn
-	
 	add_interface spi_engine_offload_0_if_trigger conduit end
     set_interface_property spi_engine_offload_0_if_trigger EXPORT_OF spi_engine_offload_0.if_trigger
     

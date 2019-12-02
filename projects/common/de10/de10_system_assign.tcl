@@ -89,21 +89,6 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to usb1_d[5]
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to usb1_d[6]
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to usb1_d[7]
 
-# sdio - de pe c5 (FIXED)
-
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_clk
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_cmd
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_d[0]
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_d[1]
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_d[2]
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdio_d[3]
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_clk
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_cmd
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_d[0]
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_d[1]
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_d[2]
-# set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to sdio_d[3]
-
 set_location_assignment PIN_B8   -to sdio_clk
 set_location_assignment PIN_D14  -to sdio_cmd
 set_location_assignment PIN_C13  -to sdio_d[0]
@@ -117,19 +102,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sdio_d[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sdio_d[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sdio_d[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sdio_d[3]
-
-
-# SPIM
-
-# set_location_assignment PIN_C19   -to spi_clk
-# set_location_assignment PIN_B19   -to spi_miso
-# set_location_assignment PIN_B16   -to spi_mosi
-# set_location_assignment PIN_C16   -to spi_csn
-
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_clk
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_miso
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_mosi
-# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_csn
 
 # ETHERNET
 
@@ -175,7 +147,6 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to eth1_rx_d[2]
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to eth1_rx_d[3]
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to eth1_mdc
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to eth1_mdio
-
 
 # DDR
 
@@ -460,7 +431,7 @@ set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to ddr3_we_n
 set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to i_system_bd|sys_hps|hps_io|border|hps_sdram_inst
 set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to i_system_bd|sys_hps|hps_io|border|hps_sdram_inst|pll0|fbout
 
-# DDR3 pin locations (FIXED)
+# DDR3 pin locations
 
 set_location_assignment PIN_C28   -to ddr3_a[0]
 set_location_assignment PIN_B28   -to ddr3_a[1]

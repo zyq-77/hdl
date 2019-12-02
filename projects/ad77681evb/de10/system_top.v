@@ -60,14 +60,6 @@ module system_top (
   output           ddr3_odt,
   input            ddr3_rzq,
   
- 
-  //inout            fixed_io_ddr_vrn,
-  //inout            fixed_io_ddr_vrp,
-  //inout   [53:0]   fixed_io_mio,
-  //inout            fixed_io_ps_clk,
-  //inout            fixed_io_ps_porb,
-  //inout            fixed_io_ps_srstb,
-  
   // hps-ethernet
 
   output            eth1_tx_clk,
@@ -79,12 +71,6 @@ module system_top (
   output            eth1_mdc,
   inout             eth1_mdio,
 
-  // hps-qspi
-/* 
-  output            qspi_ss0,
-  output            qspi_clk,
-  inout   [  3:0]   qspi_io,
- */
   // hps-sdio
 
   output            sdio_clk,
@@ -111,11 +97,10 @@ module system_top (
   input             uart0_rx,
   output            uart0_tx,
   
-    // board gpio
+  // board gpio
 
   output  [  3:0]   gpio_bd_o,
   input   [  7:0]   gpio_bd_i,
-
 
   // ad77681
  
@@ -146,7 +131,6 @@ module system_top (
 
   // instantiations
   
-
   assign gpio_i[63:42] = gpio_o[63:42];
   
   assign gpio_i[41] = ad77681_spi_miso;
@@ -167,8 +151,7 @@ module system_top (
 
   system_bd i_system_bd (
     .sys_clk_clk (sys_clk),
-	//.sys_hps_h2f_reset (sys_resetn),
-    .sys_hps_h2f_reset_reset_n (sys_resetn), 
+	.sys_hps_h2f_reset_reset_n (sys_resetn), 
     .sys_hps_memory_mem_a (ddr3_a),
     .sys_hps_memory_mem_ba (ddr3_ba),
     .sys_hps_memory_mem_ck (ddr3_ck_p),
@@ -201,12 +184,6 @@ module system_top (
     .sys_hps_hps_io_hps_io_emac1_inst_RXD1 (eth1_rx_d[1]),
     .sys_hps_hps_io_hps_io_emac1_inst_RXD2 (eth1_rx_d[2]),
     .sys_hps_hps_io_hps_io_emac1_inst_RXD3 (eth1_rx_d[3]),
-/*     .sys_hps_hps_io_hps_io_qspi_inst_IO0 (qspi_io[0]),
-    .sys_hps_hps_io_hps_io_qspi_inst_IO1 (qspi_io[1]),
-    .sys_hps_hps_io_hps_io_qspi_inst_IO2 (qspi_io[2]),
-    .sys_hps_hps_io_hps_io_qspi_inst_IO3 (qspi_io[3]),
-    .sys_hps_hps_io_hps_io_qspi_inst_SS0 (qspi_ss0),
-    .sys_hps_hps_io_hps_io_qspi_inst_CLK (qspi_clk), */
     .sys_hps_hps_io_hps_io_sdio_inst_CMD (sdio_cmd),
     .sys_hps_hps_io_hps_io_sdio_inst_D0 (sdio_d[0]),
     .sys_hps_hps_io_hps_io_sdio_inst_D1 (sdio_d[1]),
