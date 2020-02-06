@@ -4,6 +4,7 @@ source $ad_hdl_dir/projects/scripts/adi_project_xilinx.tcl
 source $ad_hdl_dir/projects/scripts/adi_board.tcl
 
 adi_project ad9081_fmca_ebz_zcu102 0 [list \
+  JESD_MODE    8B10B \
   RX_JESD_M    8  \
   RX_JESD_L    4  \
   RX_JESD_S    1  \
