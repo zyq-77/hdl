@@ -320,6 +320,7 @@ module system_top (
     .rx_os_sysref_export (sysref),
     .rx_ref_clk_clk (ref_clk1),
     .rx_sync_export (rx_sync),
+    .pr_rom_data_nc('h0),
     .rx_sysref_export (sysref));
 
 endmodule

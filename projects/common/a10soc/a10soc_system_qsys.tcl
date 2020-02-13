@@ -258,7 +258,8 @@ add_connection sys_clk.clk                  rom_sys_0.if_clk
 add_connection sys_clk.clk                  axi_sysid_0.s_axi_clock
 add_connection sys_clk.clk_reset            axi_sysid_0.s_axi_reset
 
-#set_instance_parameter_value axi_sysid_0 {ROM_ADDR_BITS} {6}
+add_interface pr_rom_data_nc conduit end
+set_interface_property pr_rom_data_nc EXPORT_OF axi_sysid_0.if_pr_rom_data
 
 # base-addresses
 
