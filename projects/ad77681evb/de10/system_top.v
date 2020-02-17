@@ -59,7 +59,7 @@ module system_top (
   output  [ 3:0]   ddr3_dm,
   output           ddr3_odt,
   input            ddr3_rzq,
-  
+
   // hps-ethernet
 
   output            eth1_tx_clk,
@@ -76,7 +76,7 @@ module system_top (
   output            sdio_clk,
   inout             sdio_cmd,
   inout   [  3:0]   sdio_d,
-  
+
   // hps-spim1-lcd
 
   output            spim1_ss0,
@@ -96,26 +96,26 @@ module system_top (
 
   input             uart0_rx,
   output            uart0_tx,
-  
+
   // board gpio
 
   output  [  3:0]   gpio_bd_o,
   input   [  7:0]   gpio_bd_i,
 
   // ad77681
- 
+
   input            ad77681_spi_miso,
   output           ad77681_spi_mosi,
   output           ad77681_spi_clk,
   output           ad77681_spi_cs,
   input            ad77681_drdy,
-    
+
   inout            ad77681_reset,
   inout            ad77681_sync_in,
   inout            ad77681_fda_dis,
   inout            ad77681_fda_mode,
   inout            ad77681_dac_buf_en,
-  
+
   // spi interface
 
   output           spi_csn,
@@ -130,28 +130,28 @@ module system_top (
   wire    [63:0]   gpio_o;
 
   // instantiations
-  
+
   assign gpio_i[63:42] = gpio_o[63:42];
-  
+
   assign gpio_i[41] = ad77681_spi_miso;
   assign ad77681_spi_mosi = gpio_o[40];
   assign ad77681_spi_sclk = gpio_o[39];
   assign ad77681_spi_cs = gpio_o[38];
   assign gpio_i[37] = ad77681_drdy;
   assign gpio_i[40:38] = gpio_o[40:38];
-  
+
   assign gpio_i[36] = ad77681_fda_dis;
   assign gpio_i[35] = ad77681_fda_mode;
   assign gpio_i[34] = ad77681_dac_buf_en;
   assign gpio_i[33] = ad77681_sync_in;
   assign gpio_i[32] = ad77681_reset;
-  
+
   assign gpio_i[40:38] = gpio_o[40:38];
   assign gpio_i[31:0] = gpio_o[31:0];
 
   system_bd i_system_bd (
     .sys_clk_clk (sys_clk),
-	.sys_hps_h2f_reset_reset_n (sys_resetn), 
+    .sys_hps_h2f_reset_reset_n (sys_resetn), 
     .sys_hps_memory_mem_a (ddr3_a),
     .sys_hps_memory_mem_ba (ddr3_ba),
     .sys_hps_memory_mem_ck (ddr3_ck_p),
@@ -169,8 +169,8 @@ module system_top (
     .sys_hps_memory_mem_dm (ddr3_dm),
     .sys_hps_memory_oct_rzqin (ddr3_rzq),
     .sys_rst_reset_n (sys_resetn),
-	
-	.sys_hps_hps_io_hps_io_emac1_inst_TX_CLK (eth1_tx_clk),
+
+    .sys_hps_hps_io_hps_io_emac1_inst_TX_CLK (eth1_tx_clk),
     .sys_hps_hps_io_hps_io_emac1_inst_TXD0 (eth1_tx_d[0]),
     .sys_hps_hps_io_hps_io_emac1_inst_TXD1 (eth1_tx_d[1]),
     .sys_hps_hps_io_hps_io_emac1_inst_TXD2 (eth1_tx_d[2]),
@@ -204,17 +204,17 @@ module system_top (
     .sys_hps_hps_io_hps_io_usb1_inst_NXT (usb1_nxt),
     .sys_hps_hps_io_hps_io_uart0_inst_RX (uart0_rx),
     .sys_hps_hps_io_hps_io_uart0_inst_TX (uart0_tx),
-	.sys_hps_hps_io_hps_io_spim1_inst_CLK (spim1_clk),
+    .sys_hps_hps_io_hps_io_spim1_inst_CLK (spim1_clk),
     .sys_hps_hps_io_hps_io_spim1_inst_MOSI (spim1_mosi),
     .sys_hps_hps_io_hps_io_spim1_inst_MISO (spim1_miso),
     .sys_hps_hps_io_hps_io_spim1_inst_SS0 (spim1_ss0),
-		
+
     .sys_gpio_bd_in_port (gpio_i[31:0]),
-	.sys_gpio_bd_out_port (gpio_o[31:0]),
-	.sys_gpio_in_export (gpio_i[63:32]),
-	.sys_gpio_out_export (gpio_o[63:32]),
-	
-   	.sys_spi_MISO (spi_miso),
+    .sys_gpio_bd_out_port (gpio_o[31:0]),
+    .sys_gpio_in_export (gpio_i[63:32]),
+    .sys_gpio_out_export (gpio_o[63:32]),
+
+    .sys_spi_MISO (spi_miso),
     .sys_spi_MOSI (spi_mosi),
     .sys_spi_SCLK (spi_clk),
     .sys_spi_SS_n (spi_csn));

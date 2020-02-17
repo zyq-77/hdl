@@ -42,7 +42,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to gpio_bd_i[7]
 # set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to gpio_bd_i[0]
 # set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to gpio_bd_i[1]
 
-# UART 
+# UART
 
 set_location_assignment PIN_A22 -to uart0_rx
 set_location_assignment PIN_B21 -to uart0_tx
@@ -50,7 +50,7 @@ set_location_assignment PIN_B21 -to uart0_tx
 # set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to uart0_rx
 # set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to uart0_tx
 
-# USB 
+# USB
 
 set_location_assignment PIN_G4    -to usb1_clk
 set_location_assignment PIN_C5    -to usb1_stp

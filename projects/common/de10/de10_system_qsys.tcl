@@ -21,8 +21,6 @@ set_instance_parameter_value sys_hps {EMAC0_PinMuxing} {Unused}
 set_instance_parameter_value sys_hps {EMAC0_Mode} {N/A}
 set_instance_parameter_value sys_hps {EMAC1_PinMuxing} {HPS I/O Set 0}
 set_instance_parameter_value sys_hps {EMAC1_Mode} {RGMII}
-# set_instance_parameter_value sys_hps {QSPI_PinMuxing} {HPS I/O Set 0}
-# set_instance_parameter_value sys_hps {QSPI_Mode} {1 SS}
 set_instance_parameter_value sys_hps {SDIO_PinMuxing} {HPS I/O Set 0}
 set_instance_parameter_value sys_hps {SDIO_Mode} {4-bit Data}
 set_instance_parameter_value sys_hps {USB0_PinMuxing} {Unused}
