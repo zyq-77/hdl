@@ -1,5 +1,5 @@
-
-    # dma
+    
+	# dma
 
     add_instance axi_dmac_0 axi_dmac
     set_instance_parameter_value axi_dmac_0 {DMA_DATA_WIDTH_SRC} {32}
@@ -22,9 +22,9 @@
     add_connection sys_clk.clk_reset axi_dmac_0.s_axi_reset
     add_connection sys_dma_clk.clk axi_dmac_0.m_dest_axi_clock
     add_connection sys_dma_clk.clk_reset axi_dmac_0.m_dest_axi_reset
-
-    # SPI Engine
-
+   	
+	# create a SPI Engine architecture for ADC
+	
     # axi_spi_engine
 
     add_instance axi_spi_engine_0 axi_spi_engine
@@ -45,21 +45,18 @@
 
     add_connection sys_clk.clk spi_engine_execution_0.if_clk
     add_connection axi_spi_engine_0.if_spi_resetn spi_engine_execution_0.if_resetn
-    add_interface spi_engine_execution_0_if_active conduit end
-    set_interface_property spi_engine_execution_0_if_active EXPORT_OF spi_engine_execution_0.if_active
     add_interface spi_engine_execution_0_if_cs conduit end
-    set_interface_property spi_engine_execution_0_if_cs EXPORT_OF spi_engine_execution_0.if_cs
+    set_interface_property spi_engine_cs EXPORT_OF spi_engine_execution_0.if_cs
     add_interface spi_engine_execution_0_if_sclk clock source
-    set_interface_property spi_engine_execution_0_if_sclk EXPORT_OF spi_engine_execution_0.if_sclk
+    set_interface_property spi_engine_sclk EXPORT_OF spi_engine_execution_0.if_sclk
     add_interface spi_engine_execution_0_if_sdi conduit end
-    set_interface_property spi_engine_execution_0_if_sdi EXPORT_OF spi_engine_execution_0.if_sdi
+    set_interface_property spi_engine_sdi EXPORT_OF spi_engine_execution_0.if_sdi
     add_interface spi_engine_execution_0_if_sdo conduit end
-    set_interface_property spi_engine_execution_0_if_sdo EXPORT_OF spi_engine_execution_0.if_sdo
-    add_interface spi_engine_execution_0_if_sdo_t conduit end
-    set_interface_property spi_engine_execution_0_if_sdo_t EXPORT_OF spi_engine_execution_0.if_sdo_t
-    add_interface spi_engine_execution_0_if_three_wire conduit end
-    set_interface_property spi_engine_execution_0_if_three_wire EXPORT_OF spi_engine_execution_0.if_three_wire
-
+    set_interface_property spi_engine_sdo EXPORT_OF spi_engine_execution_0.if_sdo
+    add_interface spi_engine_sdo_t conduit end
+    set_interface_property spi_engine_sdo_t EXPORT_OF spi_engine_execution_0.if_sdo_t
+    #add_interface spi_engine_execution_0_if_three_wire conduit end
+   
     # spi_engine_interconnect
 
     add_instance spi_engine_interconnect_0 spi_engine_interconnect
@@ -80,7 +77,7 @@
     add_connection sys_clk.clk spi_engine_offload_0.if_spi_clk
     add_connection axi_spi_engine_0.if_spi_resetn spi_engine_offload_0.if_spi_resetn
     add_interface spi_engine_offload_0_if_trigger conduit end
-    set_interface_property spi_engine_offload_0_if_trigger EXPORT_OF spi_engine_offload_0.if_trigger
+    set_interface_property spi_engine_trigger EXPORT_OF spi_engine_offload_0.if_trigger
 
     # SPI Engine connections
 
@@ -100,9 +97,9 @@
     add_connection spi_engine_offload_0.if_ctrl_enable axi_spi_engine_0.if_offload0_enable
     add_connection spi_engine_offload_0.if_ctrl_enabled axi_spi_engine_0.if_offload0_enabled
     add_connection spi_engine_offload_0.if_ctrl_mem_reset axi_spi_engine_0.if_offload0_mem_reset
-    add_connection spi_engine_offload_0.offload_sdi axi_dmac_0.s_axis
     add_connection spi_engine_offload_0.sdo_data spi_engine_interconnect_0.s1_sdo
-
+	add_connection spi_engine_offload_0.offload_sdi axi_dmac_0.s_axis	
+	
     # cpu interconnects
 
     ad_cpu_interconnect 0x00020000 axi_dmac_0.s_axi

@@ -131,14 +131,14 @@ module system_top (
 
   // instantiations
 
-  assign gpio_i[63:42] = gpio_o[63:42];
+  assign gpio_i[63:38] = gpio_o[63:38];
 
-  assign gpio_i[41] = ad77681_spi_miso;
-  assign ad77681_spi_mosi = gpio_o[40];
-  assign ad77681_spi_sclk = gpio_o[39];
-  assign ad77681_spi_cs = gpio_o[38];
+  //assign gpio_i[41] = ad77681_spi_miso;
+  //assign ad77681_spi_mosi = gpio_o[40];
+  //assign ad77681_spi_sclk = gpio_o[39];
+  //assign ad77681_spi_cs = gpio_o[38];
   assign gpio_i[37] = ad77681_drdy;
-  assign gpio_i[40:38] = gpio_o[40:38];
+//  assign gpio_i[40:38] = gpio_o[40:38];
 
   assign gpio_i[36] = ad77681_fda_dis;
   assign gpio_i[35] = ad77681_fda_mode;
@@ -146,7 +146,6 @@ module system_top (
   assign gpio_i[33] = ad77681_sync_in;
   assign gpio_i[32] = ad77681_reset;
 
-  assign gpio_i[40:38] = gpio_o[40:38];
   assign gpio_i[31:0] = gpio_o[31:0];
 
   system_bd i_system_bd (
@@ -217,7 +216,14 @@ module system_top (
     .sys_spi_MISO (spi_miso),
     .sys_spi_MOSI (spi_mosi),
     .sys_spi_SCLK (spi_clk),
-    .sys_spi_SS_n (spi_csn));
+    .sys_spi_SS_n (spi_csn),
+
+    .spi_engine_sdo (ad77681_spi_mosi),
+    .spi_engine_sdo_t (),
+    .spi_engine_sdi (ad77681_spi_miso),
+    .spi_engine_cs (ad77681_spi_cs),
+    .spi_engine_sclk (ad77681_spi_sclk),
+    .spi_engine_trigger (ad77681_drdy));
 
 endmodule
 
