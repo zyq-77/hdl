@@ -218,12 +218,12 @@ module system_top (
     .sys_spi_SCLK (spi_clk),
     .sys_spi_SS_n (spi_csn),
 
-    .spi_engine_sdo (ad77681_spi_mosi),
-    .spi_engine_sdo_t (),
-    .spi_engine_sdi (ad77681_spi_miso),
-    .spi_engine_cs (ad77681_spi_cs),
-    .spi_engine_sclk (ad77681_spi_sclk),
-    .spi_engine_trigger (ad77681_drdy));
+    .spi_engine_sdo_sdo (ad77681_spi_mosi),
+    .spi_engine_sdo_t_sdo_t (),
+    .spi_engine_sdi_sdi (ad77681_spi_miso),
+    .spi_engine_cs_cs (ad77681_spi_cs),
+    .spi_engine_sclk_clk (ad77681_spi_sclk),
+    .spi_engine_trigger_trigger (ad77681_drdy));
 
 endmodule
 
