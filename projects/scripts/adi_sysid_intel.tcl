@@ -8,9 +8,18 @@
 # \return - hex
 #
 
+#proc stringtohex {str blocksize} {
+
+#  if {[catch {binary scan $str H* hex} gitsha_string] == 0} {
+#    return [format %0-[expr $blocksize * 2]s $hex]
+#  } else {
+#    return 1
+#  }
+#}
+
 proc stringtohex {str blocksize} {
-  binary scan $str H* hex
-  return [format %0-[expr $blocksize * 2]s $hex]
+  binary scan $str H* hex;
+  return [format %0-[expr $blocksize * 2]s $hex];
 }
 
 ## Generates the 8 bit checksum for the input hex string
@@ -22,13 +31,13 @@ proc stringtohex {str blocksize} {
 
 proc checksum8bit {hex} {
 
-  set chks 0
+  set chks 0;
   for {set i 0} {$i < [string length $hex]} {incr i} {
     if { ($i+1) % 2 == 0} {
-      set chks [expr $chks + "0x[string range $hex $i-1 $i]"]
+      set chks [expr $chks + "0x[string range $hex $i-1 $i]"];
     }
-  }
-  return [format %0.2x [expr 255 - [expr "0x[string range [format %0.2x $chks] [expr [string length [format %0.2x $chks]] -2] [expr [string length [format %0.2x $chks]] -1]]"] +1]]
+  };
+  return [format %0.2x [expr 255 - [expr "0x[string range [format %0.2x $chks] [expr [string length [format %0.2x $chks]] -2] [expr [string length [format %0.2x $chks]] -1]]"] +1]];
 }
 
 ## Flips the characters of a string, four at a time. Used to fix endianness.
@@ -40,22 +49,22 @@ proc checksum8bit {hex} {
 
 proc hexstr_flip {str} {
 
-  set fstr {}
+  set fstr {};
   for {set i 0} {$i < [string length $str]} {incr i} {
-    if { ($i+1) % 8 == 0} {
-      set line [string range $str [expr $i - 7] $i]
-      set fline {}
+    if {($i+1) % 8 == 0} {
+      set line [string range $str [expr $i - 7] $i];
+      set fline {};
       for {set j 0} {$j < [string length $line]} {incr j} {
-        if { ($j+1) % 2 == 0} {
-          append fline [string reverse [append byte [string index $line $j]]]
+        if {($j+1) % 2 == 0} {
+          append fline [string reverse [append byte [string index $line $j]]];
         } else {
-          set byte [string index $line $j]
+          set byte [string index $line $j];
         }
-      }
-      append fstr [string reverse $fline]
+      };
+      append fstr [string reverse $fline];
     }
-  }
-  return $fstr
+  };
+  return $fstr;
 }
 
 ## Generates a file used for initializing the system ROM.
@@ -67,100 +76,101 @@ proc sysid_gen_sys_init_file {custom_string} {
 
   # git sha
   if {[catch {exec git rev-parse HEAD} gitsha_string] != 0} {
-    set gitsha_string 0
+    set gitsha_string 0;
   }
-  set gitsha_hex [hexstr_flip [stringtohex $gitsha_string 44]]
+  set gitsha_hex [hexstr_flip [stringtohex $gitsha_string 44]];
 
   #git clean
-  set git_clean_string "f"
+  set git_clean_string "f";
   if {$gitsha_string != 0} {
     if {[catch {exec git status .} gitstat_string] == 0} {
       if [expr [string match *modified $gitstat_string] == 0] {
-        set git_clean_string "t"
+        set git_clean_string "t";
       }
     }
   }
-  set git_clean_hex [hexstr_flip [stringtohex $git_clean_string 4]]
+  set git_clean_hex [hexstr_flip [stringtohex $git_clean_string 4]];
 
   # vadj check
-  set vadj_check_string "vadj"
-  set vadj_check_hex [hexstr_flip [stringtohex $vadj_check_string 4]]
+  set vadj_check_string "vadj";
+  set vadj_check_hex [hexstr_flip [stringtohex $vadj_check_string 4]];
 
   # time and date
-  set thetime [clock seconds]
-  set timedate_hex [hexstr_flip [stringtohex $thetime 12]]
+  set thetime [clock seconds];
+  set timedate_hex [hexstr_flip [stringtohex $thetime 12]];
 
   # merge components
-  set verh_hex {}
-  set verh_size 448
+  set verh_hex {};
+  set verh_size 448;
 
-  append verh_hex $gitsha_hex $git_clean_hex $vadj_check_hex $timedate_hex
-  append verh_hex "00000000" [checksum8bit $verh_hex] "000000"
-  set verh_hex [format %0-[expr [expr $verh_size] * 8]s $verh_hex]
+  append verh_hex $gitsha_hex $git_clean_hex $vadj_check_hex $timedate_hex;
+  append verh_hex "00000000" [checksum8bit $verh_hex] "000000";
+  set verh_hex [format %0-[expr [expr $verh_size] * 8]s $verh_hex];
 
   # common header
   # size in lines
-  set table_size 16
-  set comh_size [expr 8 * $table_size]
+  set table_size 16;
+  set comh_size [expr 8 * $table_size];
 
   # set version
-  set comh_ver_hex "00000001"
+  set comh_ver_hex "00000001";
 
   # project name
-  set projname_hex [hexstr_flip [stringtohex [lindex [split [current_project] _] 0] 32]]
-
+  set qpr $quartus(project);
+  set projname_hex [hexstr_flip [stringtohex [lindex [split $quartus(project) _] 0] 32]];
+  
   # board name
-  set boardname_hex [hexstr_flip [stringtohex [lindex [split [current_project] _] 1] 32]]
+  set boardname_hex [hexstr_flip [stringtohex [lindex [split $quartus(project) _] 1] 32]];
 
   # custom string
-  set custom_hex [hexstr_flip [stringtohex $custom_string 64]]
+  set custom_hex [hexstr_flip [stringtohex $custom_string 64]];
 
   # pr offset
   # not used
-  set pr_offset "00000000"
+  set pr_offset "00000000";
 
   # init - generate header
-  set comh_hex {}
-  append comh_hex $comh_ver_hex
+  set comh_hex {};
+  append comh_hex $comh_ver_hex;
 
   # offset for internal use area
-  set offset $table_size
-  append comh_hex [format %08s [format %0.2x $offset]]
+  set offset $table_size;
+  append comh_hex [format %08s [format %0.2x $offset]];
 
   # offset for projname_hex
-  set offset [expr $table_size + $verh_size]
-  append comh_hex [format %08s [format %0.2x $offset]]
+  set offset [expr $table_size + $verh_size];
+  append comh_hex [format %08s [format %0.2x $offset]];
 
   # offset for boardname_hex
-  set offset [expr $offset + [expr [string length $projname_hex] / 8]]
-  append comh_hex [format %08s [format %0.2x $offset]]
+  set offset [expr $offset + [expr [string length $projname_hex] / 8]];
+  append comh_hex [format %08s [format %0.2x $offset]];
 
   # offset for custom_hex
-  set offset [expr $offset + [expr [string length $boardname_hex] / 8]]
-  append comh_hex [format %08s [format %0.2x $offset]]
+  set offset [expr $offset + [expr [string length $boardname_hex] / 8]];
+  append comh_hex [format %08s [format %0.2x $offset]];
 
   # offset for pr custom string
-  set offset $pr_offset
-  append comh_hex [format %08s $offset]
+  set offset $pr_offset;
+  append comh_hex [format %08s $offset];
 
   # pad header to match size and add checksum
-  set comh_hex [format %0-[expr [expr $table_size - 2] * 8]s $comh_hex]
-  append comh_hex "00000000" [checksum8bit $comh_hex] "000000"
+  set comh_hex [format %0-[expr [expr $table_size - 2] * 8]s $comh_hex];
+  append comh_hex "00000000" [checksum8bit $comh_hex] "000000";
 
   # creating file
-  set sys_mem_hex [format %0-[expr 512 * 8]s [concat $comh_hex$verh_hex$projname_hex$boardname_hex$custom_hex]]
+  set sys_mem_hex [format %0-[expr 512 * 8]s [concat $comh_hex$verh_hex$projname_hex$boardname_hex$custom_hex]];
 
-  set sys_mem_file [open "mem_init_sys.txt" "w"]
+  set sys_mem_file [open "mem_init_sys.txt" "w"];
 
   # writting 32 bits to each line
   for {set i 0} {$i < [string length $sys_mem_hex]} {incr i} {
     if { ($i+1) % 8 == 0} {
-      puts $sys_mem_file [string index $sys_mem_hex $i]
+      puts $sys_mem_file [string index $sys_mem_hex $i];
     } else {
-      puts -nonewline $sys_mem_file [string index $sys_mem_hex $i]
+      puts -nonewline $sys_mem_file [string index $sys_mem_hex $i];
     }
-  }
-  close $sys_mem_file
+  };
+  close $sys_mem_file;
 }
 
 ## Generates a file used for initializing the PR ROM.
@@ -170,18 +180,16 @@ proc sysid_gen_sys_init_file {custom_string} {
 
 proc sysid_gen_pr_init_file {custom_string} {
 
-  set custom_hex [stringtohex $custom_string 64]
-
+  set custom_hex [stringtohex $custom_string 64];
   # creating file
-  set pr_mem_file [open "mem_init_pr.txt" "w"]
-
+  set pr_mem_file [open "mem_init_pr.txt" "w"];
   # writting 32 bits to each line
   for {set i 0} {$i < [string length $custom_hex]} {incr i} {
     if { ($i+1) % 8 == 0} {
-      puts $pr_mem_file [string index $custom_hex $i]
+      puts $pr_mem_file [string index $custom_hex $i];
     } else {
-      puts -nonewline $pr_mem_file [string index $custom_hex $i]
+      puts -nonewline $pr_mem_file [string index $custom_hex $i];
     }
-  }
-  close $pr_mem_file
+  };
+  close $pr_mem_file;
 }
