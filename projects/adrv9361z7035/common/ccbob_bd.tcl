@@ -45,9 +45,9 @@ create_bd_port -dir I -from 23 -to 0 gpio_p4_p5_c2_i
 create_bd_port -dir O -from 23 -to 0 gpio_p4_p5_c2_o
 create_bd_port -dir O -from 23 -to 0 gpio_p4_p5_c2_t
 
-create_bd_port -dir I -from 17 -to 0 gpio_p6_p7_c1_i
-create_bd_port -dir O -from 17 -to 0 gpio_p6_p7_c1_o
-create_bd_port -dir O -from 17 -to 0 gpio_p6_p7_c1_t
+create_bd_port -dir I -from 15 -to 0 gpio_p6_p7_c1_i
+create_bd_port -dir O -from 15 -to 0 gpio_p6_p7_c1_o
+create_bd_port -dir O -from 15 -to 0 gpio_p6_p7_c1_t
 create_bd_port -dir I -from 17 -to 0 gpio_p6_p7_c2_i
 create_bd_port -dir O -from 17 -to 0 gpio_p6_p7_c2_o
 create_bd_port -dir O -from 17 -to 0 gpio_p6_p7_c2_t
@@ -70,7 +70,7 @@ ad_ip_parameter gpio_p4_p5 CONFIG.C_GPIO2_WIDTH 24
 
 ad_ip_instance axi_gpio gpio_p6_p7
 ad_ip_parameter gpio_p6_p7 CONFIG.C_IS_DUAL 1
-ad_ip_parameter gpio_p6_p7 CONFIG.C_GPIO_WIDTH 18
+ad_ip_parameter gpio_p6_p7 CONFIG.C_GPIO_WIDTH 16
 ad_ip_parameter gpio_p6_p7 CONFIG.C_GPIO2_WIDTH 18
 
 ad_connect gpio_p2_c1_i gpio_p2/gpio_io_i
